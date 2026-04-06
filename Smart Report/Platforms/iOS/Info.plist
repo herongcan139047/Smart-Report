@@ -28,5 +28,12 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
+	<key>CFBundleIdentifier</key>
+	<string></string>
+	<key>NSCameraUsageDescription</key>
+<string>Need camera to take photos for reports.</string>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Need location to attach coordinates to reports.</string>
+
 </dict>
 </plist>

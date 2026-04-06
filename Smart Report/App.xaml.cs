@@ -1,17 +1,33 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Smart_Report.Services;
+using Smart_Report.Views;
 
-namespace Smart_Report
+namespace Smart_Report;
+
+public partial class App : Application
 {
-    public partial class App : Application
+    public App()
     {
-        public App()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
 
-        protected override Window CreateWindow(IActivationState? activationState)
+        MainPage = new ContentPage();
+        _ = InitAsync();
+    }
+
+    private async Task InitAsync()
+    {
+        var auth = MauiProgram.Services.GetRequiredService<AuthService>();
+        await auth.RestoreSessionAsync();
+
+        if (auth.CurrentUser != null)
         {
-            return new Window(new AppShell());
+            // 已登录，进入主界面
+            MainPage = new AppShell();
+        }
+        else
+        {
+            // 未登录，先进入登录页
+            MainPage = new NavigationPage(new LoginPage());
         }
     }
 }

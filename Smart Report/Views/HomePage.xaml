@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Smart_Report.Views.HomePage"
+             Title="Home">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Logout"
+                     Order="Primary"
+                     Priority="0"
+                     Clicked="OnLogoutClicked" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+
+            <Label Text="Smart_Report - Home"
+                   FontSize="24"
+                   FontAttributes="Bold" />
+
+            <Border StrokeThickness="1" Padding="12">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Welcome 👋" FontSize="18" />
+
+                    <Label x:Name="AccountNameLabel"
+                           Text="Account: -"
+                           FontSize="16"
+                           FontAttributes="Bold" />
+
+                    <Label x:Name="AccountEmailLabel"
+                           Text="Email: -"
+                           FontSize="14" />
+
+                    <Label Text="This is a placeholder home page." />
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Go To Register"
+                    Clicked="OnGoRegisterClicked" />
+
+            <Button Text="Go To Todo"
+                    Clicked="OnGoTodoClicked" />
+
+            <Button Text="Go To Report"
+                    Clicked="OnGoReportClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

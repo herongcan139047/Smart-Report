@@ -1,14 +1,25 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Shell
     x:Class="Smart_Report.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Smart_Report"
-    Title="Smart_Report">
+    xmlns:views="clr-namespace:Smart_Report.Views">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <ShellContent
+            Title="Home"
+            Route="home"
+            ContentTemplate="{DataTemplate views:HomePage}" />
+
+        <ShellContent
+            Title="Report"
+            Route="report"
+            ContentTemplate="{DataTemplate views:ReportPage}" />
+
+        <ShellContent
+            Title="Todos"
+            Route="todos"
+            ContentTemplate="{DataTemplate views:TodoPage}" />
+    </TabBar>
 
 </Shell>
