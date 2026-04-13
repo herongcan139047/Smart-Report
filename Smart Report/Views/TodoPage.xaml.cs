@@ -9,6 +9,7 @@ public partial class TodoPage : ContentPage
 {
     private readonly AppDb _db;
     private readonly AuthService _auth;
+    private readonly NativeFeedbackService _feedback;
     private List<TodoItem> _items = new();
 
     public TodoPage()
@@ -17,6 +18,7 @@ public partial class TodoPage : ContentPage
 
         _db = MauiProgram.Services.GetRequiredService<AppDb>();
         _auth = MauiProgram.Services.GetRequiredService<AuthService>();
+        _feedback = MauiProgram.Services.GetRequiredService<NativeFeedbackService>();
     }
 
     protected override async void OnAppearing()
@@ -29,6 +31,7 @@ public partial class TodoPage : ContentPage
         }
         catch (Exception ex)
         {
+            await _feedback.ErrorVibrateAsync();
             await DisplayAlert("Error", ex.Message, "OK");
         }
     }
@@ -52,7 +55,11 @@ public partial class TodoPage : ContentPage
         try
         {
             var text = (TodoEntry.Text ?? "").Trim();
-            if (text.Length == 0) return;
+            if (text.Length == 0)
+            {
+                await _feedback.ErrorVibrateAsync();
+                return;
+            }
 
             var uid = _auth.CurrentUserId;
             if (uid == null)
@@ -69,10 +76,13 @@ public partial class TodoPage : ContentPage
             });
 
             TodoEntry.Text = "";
+
+            await _feedback.TapAsync();
             await ReloadAsync();
         }
         catch (Exception ex)
         {
+            await _feedback.ErrorVibrateAsync();
             await DisplayAlert("Error", ex.Message, "OK");
         }
     }
@@ -86,9 +96,12 @@ public partial class TodoPage : ContentPage
 
             item.IsDone = e.Value;
             await _db.UpdateTodoAsync(item);
+
+            await _feedback.TapAsync();
         }
         catch (Exception ex)
         {
+            await _feedback.ErrorVibrateAsync();
             await DisplayAlert("Error", ex.Message, "OK");
         }
     }
@@ -101,10 +114,15 @@ public partial class TodoPage : ContentPage
                 return;
 
             await _db.DeleteTodoAsync(item);
+
+            await _feedback.LongPressAsync();
+            await _feedback.SuccessVibrateAsync();
+
             await ReloadAsync();
         }
         catch (Exception ex)
         {
+            await _feedback.ErrorVibrateAsync();
             await DisplayAlert("Error", ex.Message, "OK");
         }
     }

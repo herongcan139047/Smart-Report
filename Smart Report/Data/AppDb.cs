@@ -84,6 +84,15 @@ public class AppDb
                 "ALTER TABLE ReportItem ADD COLUMN ResolvedAt TEXT NULL;"
             );
         }
+
+        // 新增：定位预览图路径列
+        // New: location preview image path column
+        if (!cols.Any(c => c.name == "LocationPreviewPath"))
+        {
+            await _conn.ExecuteAsync(
+                "ALTER TABLE ReportItem ADD COLUMN LocationPreviewPath TEXT NOT NULL DEFAULT '';"
+            );
+        }
     }
 
     private async Task EnsureAdminAccountAsync()

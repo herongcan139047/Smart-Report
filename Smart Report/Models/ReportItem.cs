@@ -15,6 +15,10 @@ public class ReportItem
 
     public string PhotoPath { get; set; } = "";
 
+    // 新增：定位预览图路径
+    // New: location preview image path
+    public string LocationPreviewPath { get; set; } = "";
+
     public double? Latitude { get; set; }
     public double? Longitude { get; set; }
 

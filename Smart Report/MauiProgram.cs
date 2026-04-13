@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Smart_Report.Services;
 
 namespace Smart_Report;
 
@@ -26,7 +27,8 @@ public static class MauiProgram
 
         // 保留你原来的 DI 注册写法
         builder.Services.AddSingleton<Data.AppDb>();
-        builder.Services.AddSingleton<Services.AuthService>();
+        builder.Services.AddSingleton<AuthService>();
+        builder.Services.AddSingleton<NativeFeedbackService>();
 
         var app = builder.Build();
 

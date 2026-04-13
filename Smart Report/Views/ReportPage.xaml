@@ -34,10 +34,28 @@
             <Label x:Name="InfoLabel"
                    TextColor="Gray" />
 
+            <!-- Photo preview -->
             <Image x:Name="PreviewImage"
                    HeightRequest="180"
                    Aspect="AspectFill"
                    IsVisible="False" />
+
+            <!-- Location preview -->
+            <Label x:Name="LocationPreviewTitle"
+                   Text="Location Preview"
+                   FontAttributes="Bold"
+                   IsVisible="False" />
+
+            <Image x:Name="LocationPreviewImage"
+                   HeightRequest="140"
+                   WidthRequest="220"
+                   Aspect="AspectFill"
+                   IsVisible="False" />
+
+            <Button x:Name="OpenMapButton"
+                    Text="Open in Google Maps"
+                    Clicked="OnOpenCurrentLocationInGoogleMapsClicked"
+                    IsVisible="False" />
 
             <Label Text="History"
                    FontSize="18"
@@ -61,6 +79,7 @@
                                        LineBreakMode="WordWrap"
                                        MaxLines="3" />
 
+                                <!-- Report photo -->
                                 <Image Source="{Binding PhotoPath}"
                                        HeightRequest="180"
                                        Aspect="AspectFill"
@@ -78,6 +97,30 @@
                                         </DataTrigger>
                                     </Image.Triggers>
                                 </Image>
+
+                                <!-- Location preview image -->
+                                <Image Source="{Binding LocationPreviewPath}"
+                                       HeightRequest="120"
+                                       WidthRequest="200"
+                                       Aspect="AspectFill"
+                                       Margin="0,6,0,0">
+                                    <Image.Triggers>
+                                        <DataTrigger TargetType="Image"
+                                                     Binding="{Binding LocationPreviewPath}"
+                                                     Value="">
+                                            <Setter Property="IsVisible" Value="False" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Image"
+                                                     Binding="{Binding LocationPreviewPath}"
+                                                     Value="{x:Null}">
+                                            <Setter Property="IsVisible" Value="False" />
+                                        </DataTrigger>
+                                    </Image.Triggers>
+                                </Image>
+
+                                <Button Text="Open in Google Maps"
+                                        Clicked="OnOpenSavedLocationInGoogleMapsClicked"
+                                        CommandParameter="{Binding .}" />
 
                                 <Label Text="{Binding CreatedAt, StringFormat='Created: {0:yyyy-MM-dd HH:mm:ss}'}"
                                        FontSize="12"
