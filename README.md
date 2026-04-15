@@ -1,23 +1,38 @@
 # Smart_Report
 
-Smart_Report is a lightweight mobile reporting application built with .NET MAUI. It allows users to register, log in, create reports, attach photos, capture location data, and manage personal todo items. The project uses SQLite for local data storage and is designed as a simple cross-platform mobile app prototype for Android, iOS, MacCatalyst, and Windows.
+Smart_Report is a lightweight cross-platform mobile reporting application built with .NET MAUI and C#. It allows users to register, log in, submit reports with photos and location data, and manage personal todo items. The project uses SQLite for local data storage and is designed as a simple mobile app prototype for Android, iOS, MacCatalyst, and Windows.
+
+---
+
+## Overview
+
+The purpose of Smart_Report is to provide a simple mobile reporting system where users can quickly record issues, attach evidence such as photos and location coordinates, and keep track of their own tasks in one app.
+
+The application focuses on:
+
+- user authentication
+- issue reporting
+- local data persistence
+- personal task management
+- simple multi-page mobile navigation
 
 ---
 
 ## Features
 
 ### User Authentication
-- User registration with unique email
+- User registration with unique email validation
 - User login and logout
 - Session restore using local preferences
-- Display current user information
+- Display current logged-in user information
 
 ### Report Management
 - Create a report with a title and description
 - Take or attach a photo
-- Capture location information
-- Save reports into the local SQLite database
+- Capture current location coordinates
+- Save report data into the local SQLite database
 - Display report history in a list
+- Store each report with user ownership
 
 ### Todo Management
 - Add todo items
@@ -26,9 +41,14 @@ Smart_Report is a lightweight mobile reporting application built with .NET MAUI.
 - Load todos based on the current logged-in user
 
 ### Navigation
-- Tab-based navigation using AppShell
+- Tab-based navigation using `AppShell`
 - Includes Home, Report, and Todos pages
 - Separate Login and Register pages
+
+### Native Mobile Support
+- Camera integration for report photos
+- Location support for latitude and longitude capture
+- Haptic or vibration feedback on supported devices
 
 ---
 
@@ -36,6 +56,7 @@ Smart_Report is a lightweight mobile reporting application built with .NET MAUI.
 
 - .NET MAUI
 - C#
+- .NET 10
 - SQLite
 - sqlite-net-pcl
 - CommunityToolkit.Mvvm
@@ -57,7 +78,8 @@ Smart_Report
 │   └── AppDb.cs
 │
 ├── Services
-│   └── AuthService.cs
+│   ├── AuthService.cs
+│   └── NativeFeedbackService.cs
 │
 ├── Views
 │   ├── LoginPage.xaml / .cs
@@ -72,95 +94,3 @@ Smart_Report
 ├── AppShell.xaml
 ├── AppShell.xaml.cs
 └── MauiProgram.cs
-
-
-How the Project Works
-Database
-
-The application uses AppDb to manage SQLite database operations. When the app starts, the database is initialized and tables are created if they do not already exist.
-
-Authentication
-
-AuthService handles:
-
-user registration
-login validation
-logout
-restoring the current session
-Reports
-
-Users can create a report by entering:
-
-title
-description
-optional photo
-optional location
-
-The report is then saved into the database and displayed in the report list.
-
-Todos
-
-Each logged-in user can manage their own todo items. Todo data is loaded from the database and displayed in the UI.
-
-Database Models
-User
-
-Stores account information:
-
-Id
-Email
-DisplayName
-PasswordHash
-Salt
-TodoItem
-
-Stores todo records:
-
-Id
-UserId
-Title
-IsDone
-CreatedAt
-ReportItem
-
-Stores report records:
-
-Id
-UserId
-Title
-Description
-PhotoPath
-Latitude
-Longitude
-CreatedAt
-Setup Instructions
-Requirements
-Visual Studio 2022
-.NET MAUI workload installed
-Android Emulator or Windows machine
-Steps
-Open the project in Visual Studio 2022.
-Restore NuGet packages.
-Build the solution.
-Run the app on Android Emulator, Windows, or another supported platform.
-Current Pages
-LoginPage - user login
-RegisterPage - user registration
-HomePage - main page after login
-ReportPage - create and view reports
-TodoPage - manage todo items
-AccountPage - display current user information
-Highlights
-Cross-platform mobile app built with .NET MAUI
-Local database integration with SQLite
-User authentication with session restore
-Report creation with photo and location support
-Personal todo management
-Clean multi-page navigation structure
-Future Improvements
-Admin management functions
-Report status update features
-Better UI design and validation
-Cloud database support
-Push notifications
-Image upload optimization
